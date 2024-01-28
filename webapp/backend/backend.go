@@ -21,15 +21,13 @@ type Item struct {
 	PRICE float64 `json:"price"`
 }
 
-// @title Your Web App API
-// @version 1.0
-// @description This is a sample API for your web app.
-// @termsOfService https://example.com/terms
-// @contact name@yourcompany.com
-// @license MIT
+//	@title			ShoppyList Web Api
+//	@version		1.0
+//	@description	This is a simple web api for storing amazon products by their urls
+//	@license		MIT
 
-// @host localhost:8080
-// @BasePath /api
+//	@host		localhost:8080
+//	@BasePath	/api
 func Init(dsn string) (*mux.Router, error) {
 	router := mux.NewRouter()
 
@@ -47,14 +45,14 @@ func Init(dsn string) (*mux.Router, error) {
 	return router, err
 }
 
-// @Summary Add a new item
-// @Description Add a new item to the system
-// @Accept json
-// @Produce json
-// @Param newItem body Item true "New item details"
-// @Success 200 {string} string "OK"
-// @Failure 400 {string} string "Bad Request"
-// @Router /api/addItem [post]
+//	@Summary		Add a new item
+//	@Description	Add a new item to the system
+//	@Accept			json
+//	@Produce		json
+//	@Param			newItem	body		Item	true	"New item details"
+//	@Success		200		{string}	string	"OK"
+//	@Failure		400		{string}	string	"Bad Request"
+//	@Router			/api/addItem [post]
 func addItemHandler(w http.ResponseWriter, r *http.Request) {
 	var newItem db.Item
 	err := json.NewDecoder(r.Body).Decode(&newItem)
@@ -73,12 +71,12 @@ func addItemHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// @Summary Get items
-// @Description Get a list of items
-// @Produce json
-// @Success 200 {array} Item "List of items"
-// @Failure 400 {string} string "Bad Request"
-// @Router /api/getItems [get]
+//	@Summary		Get items
+//	@Description	Get a list of items
+//	@Produce		json
+//	@Success		200	{array}		Item	"List of items"
+//	@Failure		400	{string}	string	"Bad Request"
+//	@Router			/api/getItems [get]
 func getItemsHandler(w http.ResponseWriter, r *http.Request) {
 	productsList, err := db.GetItems()
 
@@ -91,13 +89,13 @@ func getItemsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(productsList)
 }
 
-// @Summary Update item price
-// @Description Update the price of an item
-// @Produce json
-// @Param url query string true "URL of the item"
-// @Success 200 {string} string "OK"
-// @Failure 400 {string} string "Bad Request"
-// @Router /api/updatePrice [get]
+//	@Summary		Update item price
+//	@Description	Update the price of an item
+//	@Produce		json
+//	@Param			url	query		string	true	"URL of the item"
+//	@Success		200	{string}	string	"OK"
+//	@Failure		400	{string}	string	"Bad Request"
+//	@Router			/api/updatePrice [get]
 func updatePriceHandler(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 	if url == "" {
@@ -120,12 +118,12 @@ func updatePriceHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// @Summary Update prices of all items
-// @Description Update the prices of all items
-// @Produce json
-// @Success 200 {string} string "OK"
-// @Failure 400 {string} string "Bad Request"
-// @Router /api/updatePrices [get]
+//	@Summary		Update prices of all items
+//	@Description	Update the prices of all items
+//	@Produce		json
+//	@Success		200	{string}	string	"OK"
+//	@Failure		400	{string}	string	"Bad Request"
+//	@Router			/api/updatePrices [get]
 func updatePricesHandler(w http.ResponseWriter, r *http.Request) {
 	mutex.Lock()
 
@@ -164,13 +162,13 @@ func updatePricesHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// @Summary Remove an item
-// @Description Remove an item from the system
-// @Produce json
-// @Param url query string true "URL of the item"
-// @Success 200 {string} string "OK"
-// @Failure 400 {string} string "Bad Request"
-// @Router /api/removeItem [delete]
+//	@Summary		Remove an item
+//	@Description	Remove an item from the system
+//	@Produce		json
+//	@Param			url	query		string	true	"URL of the item"
+//	@Success		200	{string}	string	"OK"
+//	@Failure		400	{string}	string	"Bad Request"
+//	@Router			/api/removeItem [delete]
 func removeItemHandler(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 	if url == "" {
