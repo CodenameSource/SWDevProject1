@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a web application designed for storing Amazon products in a list, with an integrated microservice for scraping their prices. The application provides a set of APIs to add, retrieve, update, and remove items from the stored list. Additionally, it leverages a Kafka-based microservice to periodically refresh and update the prices of the stored Amazon products.
+This project is a web application designed for storing Amazon products in a list, with an integrated microservice for scraping their prices. The application provides a set of APIs to add, retrieve, update, and remove items from the stored list. Additionally, it leverages a microservice to periodically refresh and update the prices of the stored Amazon products.
 
 ## Specifications by user stories
 
@@ -14,9 +14,9 @@ This project is a web application designed for storing Amazon products in a list
 
 - **Get Items**: Retrieves a list of all stored Amazon products with their details, including URLs and prices.
 
-- **Update Item Price**: Updates the price of a specific Amazon product by providing the product's URL. This triggers a refresh event using the Kafka microservice.
+- **Update Item Price**: Updates the price of a specific Amazon product by providing the product's URL. This triggers a refresh event using the price checker microservice.
 
-- **Update Prices of All Items**: Initiates a process to update the prices of all stored Amazon products. This involves sending refresh events for each product and listening for updated prices using the Kafka microservice.
+- **Update Prices of All Items**: Initiates a process to update the prices of all stored Amazon products. This involves sending refresh events for each product and listening for updated prices using the price checker microservice.
 
 - **Remove Item**: Removes a specific Amazon product from the system by providing the product's URL.
 
