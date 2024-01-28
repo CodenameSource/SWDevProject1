@@ -2,10 +2,15 @@ version: "2.1"
 
 services:
   webapp: # Microservice 1
-    image: swdev-project1-webapp 
+    image: swdev-project1-webapp
+    build:
+        context: webapp
+        dockerfile: Dockerfile
+        tags:
+            - "swdev-project1-webapp:latest"
     ports:
       - "8080:8080"
-    depends_on: 
+    depends_on:
       db:
         condition: service_healthy
       kafka:
@@ -22,6 +27,11 @@ services:
       KAFKA_PORT: 9092
   price-checker: # Microservice 2
     image: swdev-project1-price-checker
+    build:
+        context: check-price
+        dockerfile: Dockerfile
+        tags:
+            - "swdev-project1-price-checker:latest"
     container_name: price-checker
     depends_on:
       kafka:
@@ -32,7 +42,7 @@ services:
       KAFKA_PORT: 9092
   db:
     image: mysql:8.0
-    container_name: mysql 
+    container_name: mysql
     ports:
       - "3306"
     command: --init-file /data/application/init.sql
@@ -42,7 +52,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
     hostname: mysql
     healthcheck:
-    
+
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 5s
       retries: 10
