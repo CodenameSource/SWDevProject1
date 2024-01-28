@@ -1,4 +1,110 @@
+definitions:
+  backend.Item:
+    properties:
+      price:
+        type: number
+      url:
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /api/addItem:
+    post:
+      consumes:
+      - application/json
+      description: Add a new item to the system
+      parameters:
+      - description: New item details
+        in: body
+        name: newItem
+        required: true
+        schema:
+          $ref: '#/definitions/backend.Item'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Add a new item
+  /api/getItems:
+    get:
+      description: Get a list of items
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of items
+          schema:
+            items:
+              $ref: '#/definitions/backend.Item'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get items
+  /api/removeItem:
+    delete:
+      description: Remove an item from the system
+      parameters:
+      - description: URL of the item
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Remove an item
+  /api/updatePrice:
+    get:
+      description: Update the price of an item
+      parameters:
+      - description: URL of the item
+        in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update item price
+  /api/updatePrices:
+    get:
+      description: Update the prices of all items
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update prices of all items
 swagger: "2.0"
